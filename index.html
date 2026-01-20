@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICAI Commerce Wizard Mock Test (Full 100 Qs)</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { margin: 0; background-color: #f4f7f6; display: flex; flex-direction: column; height: 100vh; }
+
+        /* Header */
+        header {
+            background: var(--primary); color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;
+        }
+        .timer-box { font-size: 1.2rem; font-weight: bold; background: #34495e; padding: 0.5rem 1rem; border-radius: 4px; }
+        .warning-anim { color: #e74c3c; animation: pulse 1s infinite; }
+
+        /* Main Layout */
+        .container { display: flex; flex: 1; overflow: hidden; }
+        
+        /* Question Area */
+        .question-panel { flex: 3; padding: 2rem; overflow-y: auto; background: white; margin: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column;}
+        .q-header { display: flex; justify-content: space-between; margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 1rem; }
+        .q-text { font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.6; font-weight: 500; }
+        
+        .options-grid { display: grid; gap: 0.8rem; }
+        .option-card { 
+            padding: 1rem; border: 2px solid var(--light); border-radius: 6px; cursor: pointer; transition: all 0.2s; position: relative;
+        }
+        .option-card:hover { border-color: var(--secondary); background: #f0f8ff; }
+        .option-card.selected { border-color: var(--secondary); background: var(--secondary); color: white; }
+
+        /* Sidebar / Palette */
+        .sidebar { flex: 1; background: white; border-left: 1px solid #ddd; display: flex; flex-direction: column; min-width: 250px; }
+        .palette-header { padding: 1rem; background: #fafafa; border-bottom: 1px solid #ddd; font-weight: bold; text-align: center;}
+        .palette-grid { padding: 1rem; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; overflow-y: auto; flex: 1; align-content: start; }
+        .palette-btn {
+            aspect-ratio: 1; border: 1px solid #ddd; background: white; border-radius: 4px; cursor: pointer; font-weight: bold; color: #555;
+            display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+        }
+        .palette-btn:hover { background: #eee; }
+        .palette-btn.active { border: 2px solid var(--primary); transform: scale(1.05); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .palette-btn.answered { background: var(--success); color: white; border-color: var(--success); }
+        .palette-btn.review { background: var(--warning); color: white; border-color: var(--warning); }
+        .palette-btn.review-answered { background: #8e44ad; color: white; border-color: #8e44ad; } /* Review + Answered */
+
+        /* Legend */
+        .legend { padding: 0.5rem; font-size: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid #eee; justify-content: center;}
+        .legend-item { display: flex; align-items: center; gap: 4px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        /* Footer Controls */
+        .controls { padding: 1rem; display: flex; justify-content: space-between; background: white; border-top: 1px solid #ddd; }
+        .btn { padding: 0.8rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-prev { background: var(--light); color: var(--dark); }
+        .btn-next { background: var(--secondary); color: white; }
+        .btn-review { background: var(--warning); color: white; }
+        .btn-submit { background: var(--success); color: white; }
+        .btn:hover { opacity: 0.9; }
+
+        /* Modal for Results */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 0; border-radius: 8px; width: 90%; max-width: 800px; height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+        .modal-header { padding: 1.5rem; background: var(--primary); color: white; }
+        .modal-body { padding: 2rem; overflow-y: auto; flex: 1; }
+        
+        .result-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .stat-box { padding: 1rem; background: var(--light); border-radius: 8px; text-align: center; }
+        .stat-val { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .stat-label { font-size: 0.9rem; color: #7f8c8d; }
+
+        .analysis-card { background: #fff; border: 1px solid #eee; margin-bottom: 1rem; padding: 1rem; border-radius: 6px; border-left: 5px solid #ccc; }
+        .analysis-card.incorrect { border-left-color: var(--accent); background: #fff5f5; }
+        .analysis-card.skipped { border-left-color: var(--warning); background: #fffcf5; }
+        
+        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: white; display: inline-block; margin-bottom: 0.5rem;}
+        .bg-red { background: var(--accent); }
+        .bg-orange { background: var(--warning); }
+        
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* Start Screen */
+        #start-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 1rem; }
+        .start-card { max-width: 500px; width: 100%; padding: 2rem; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); background: white; }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <div class="start-card">
+            <h1 style="color: var(--primary);">ICAI Commerce Wizard</h1>
+            <h3 style="color: var(--secondary);">Full Mock Test (100 Questions)</h3>
+            <div style="text-align: left; background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                <p><strong>⏱ Duration:</strong> 60 Minutes</p>
+                <p><strong>📝 Sections:</strong> Accountancy, BST, Economics, Aptitude (25 Each)</p>
+                <p><strong>✅ Marking:</strong> No Negative Marking</p>
+            </div>
+            <button class="btn btn-next" style="width: 100%; font-size: 1.2rem;" onclick="startQuiz()">START EXAM</button>
+        </div>
+    </div>
+
+    <header>
+        <div style="font-weight: bold;">ICAI MOCK TEST 2026</div>
+        <div class="timer-box" id="timer">60:00</div>
+    </header>
+
+    <div class="container">
+        <div class="question-panel">
+            <div class="q-header">
+                <span id="q-category" style="font-weight: bold; color: var(--secondary);">SECTION</span>
+                <span id="q-number" style="color: #7f8c8d;">Question 1/100</span>
+            </div>
+            <div id="question-text" class="q-text">Loading...</div>
+            <div id="options-container" class="options-grid"></div>
+        </div>
+
+        <div class="sidebar">
+            <div class="palette-header">Question Palette</div>
+            <div class="legend">
+                <div class="legend-item"><div class="dot" style="background:var(--success)"></div>Ans</div>
+                <div class="legend-item"><div class="dot" style="background:var(--warning)"></div>Rev</div>
+                <div class="legend-item"><div class="dot" style="border:1px solid #ddd"></div>Skip</div>
+            </div>
+            <div class="palette-grid" id="palette"></div>
+            <div style="padding: 1rem; border-top: 1px solid #ddd;">
+                <button class="btn btn-submit" style="width: 100%" onclick="confirmSubmit()">SUBMIT TEST</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-prev" onclick="prevQuestion()">Previous</button>
+        <button class="btn btn-review" onclick="toggleReview()">Mark for Review</button>
+        <button class="btn btn-next" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div id="result-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="margin:0">Test Results</h2>
+            </div>
+            <div class="modal-body">
+                <div class="result-summary">
+                    <div class="stat-box">
+                        <div class="stat-val" id="score-val">0</div>
+                        <div class="stat-label">Total Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" id="accuracy-val">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" style="color: var(--accent)" id="wrong-val">0</div>
+                        <div class="stat-label">Incorrect</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" style="color: var(--warning)" id="skipped-val">0</div>
+                        <div class="stat-label">Skipped</div>
+                    </div>
+                </div>
+                
+                <h3 style="border-bottom: 2px solid var(--light); padding-bottom: 0.5rem;">Mistakes & Skipped Questions</h3>
+                <div id="analysis-content"></div>
+                
+                <button class="btn btn-next" style="margin-top: 2rem; width: 100%;" onclick="location.reload()">Return to Start</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // DATA: FULL 100 QUESTIONS
+        // ==========================================
+        const questions = [
+            // --- SECTION 1: ACCOUNTANCY (1-25) ---
+            { q: "On admission of a partner, if the value of building increases, it is debited to Building A/c and credited to:", options: ["Revaluation A/c", "Partners' Capital A/c", "P&L Suspense A/c", "Realisation A/c"], ans: 0, cat: "Accountancy" },
+            { q: "When shares are forfeited, the Share Capital Account is debited with:", options: ["Nominal Value", "Called-up Value", "Paid-up Value", "Market Value"], ans: 1, cat: "Accountancy" },
+            { q: "Debentures issued as collateral security will appear in the Balance Sheet:", options: ["Long Term Borrowings", "Current Liabilities", "Investments", "Only in Notes to Accounts"], ans: 3, cat: "Accountancy" },
+            { q: "X, Y, Z share profits in 5:3:2. Z retires. New ratio of X and Y is 3:2. Gaining Ratio is:", options: ["1:1", "13:11", "5:3", "3:2"], ans: 1, cat: "Accountancy" },
+            { q: "Which is NOT a tool of Financial Statement Analysis?", options: ["Cash Flow Statement", "Ratio Analysis", "Trial Balance", "Common Size Statement"], ans: 2, cat: "Accountancy" },
+            { q: "Securities Premium Reserve can be used for:", options: ["Paying Dividend", "Writing off Preliminary Exp", "Writing off Bad Debts", "Paying Salaries"], ans: 1, cat: "Accountancy" },
+            { q: "Interest on Calls in Arrears is charged according to Table F at:", options: ["6% p.a.", "10% p.a.", "12% p.a.", "5% p.a."], ans: 1, cat: "Accountancy" },
+            { q: "In the absence of a Partnership Deed, interest on partner's loan is allowed at:", options: ["6% p.a.", "10% p.a.", "Market Rate", "No Interest"], ans: 0, cat: "Accountancy" },
+            { q: "Sacrificing Ratio is calculated at the time of:", options: ["Admission", "Retirement", "Dissolution", "Death"], ans: 0, cat: "Accountancy" },
+            { q: "Current Ratio is 2:1. Payment of a Current Liability will:", options: ["Increase Ratio", "Decrease Ratio", "No Change", "Double the Ratio"], ans: 0, cat: "Accountancy" },
+            { q: "Cash Flow from Operating Activities does NOT include:", options: ["Cash from Customers", "Payment to Suppliers", "Purchase of Machinery", "Payment of Salaries"], ans: 2, cat: "Accountancy" },
+            { q: "If Vendors are issued debentures of ₹1,10,000 for assets worth ₹1,00,000, the difference is debited to:", options: ["Goodwill", "Capital Reserve", "P&L A/c", "Suspense A/c"], ans: 0, cat: "Accountancy" },
+            { q: "Realisation A/c is a:", options: ["Personal A/c", "Real A/c", "Nominal A/c", "Suspense A/c"], ans: 2, cat: "Accountancy" },
+            { q: "Minimum number of members in a Public Company is:", options: ["2", "7", "50", "200"], ans: 1, cat: "Accountancy" },
+            { q: "Interest on Drawings is income for the:", options: ["Partner", "Firm", "Bank", "Government"], ans: 1, cat: "Accountancy" },
+            { q: "Dissolution of Partnership is different from Dissolution of Firm because:", options: ["Business continues", "Business ends", "Assets are sold", "Liabilities paid"], ans: 0, cat: "Accountancy" },
+            { q: "Discount on issue of Debentures is written off in the year of issue from:", options: ["Statement of P&L", "General Reserve", "Security Premium", "Any of the above"], ans: 3, cat: "Accountancy" },
+            { q: "Quick Ratio excludes which Current Asset?", options: ["Cash", "Debtors", "Inventory", "Bank Balance"], ans: 2, cat: "Accountancy" },
+            { q: "Super profit is:", options: ["Actual Profit - Normal Profit", "Normal Profit - Actual Profit", "Avg Profit / Normal Profit", "None"], ans: 0, cat: "Accountancy" },
+            { q: "Authorized Capital is mentioned in:", options: ["Articles of Association", "Memorandum of Association", "Prospectus", "Balance Sheet only"], ans: 1, cat: "Accountancy" },
+            { q: "Under fluctuation capital method, interest on capital is credited to:", options: ["Partner's Capital A/c", "Partner's Current A/c", "P&L Appropriation", "Drawings A/c"], ans: 0, cat: "Accountancy" },
+            { q: "A company purchased machinery for ₹9,00,000. Consideration paid by issuing shares of ₹100 each at 20% premium. Number of shares?", options: ["9000", "7500", "10000", "8000"], ans: 1, cat: "Accountancy" },
+            { q: "Return on Investment (ROI) is calculated on:", options: ["Shareholder's Funds", "Total Assets", "Capital Employed", "Working Capital"], ans: 2, cat: "Accountancy" },
+            { q: "Proposed Dividend is shown in Balance Sheet as:", options: ["Current Liability", "Long Term Liability", "Contingent Liability", "Reserves"], ans: 2, cat: "Accountancy" },
+            { q: "Excess of Actual Profit over Normal Profit is known as:", options: ["Net Profit", "Super Profit", "Revaluation Profit", "Average Profit"], ans: 1, cat: "Accountancy" },
+
+            // --- SECTION 2: BUSINESS STUDIES (26-50) ---
+            { q: "Management is a:", options: ["Science", "Art", "Both Art & Science", "Neither"], ans: 2, cat: "Business Studies" },
+            { q: "Who is known as the Father of Scientific Management?", options: ["Henry Fayol", "F.W. Taylor", "Peter Drucker", "Elton Mayo"], ans: 1, cat: "Business Studies" },
+            { q: "Which principle of management states 'One Head One Plan'?", options: ["Unity of Command", "Unity of Direction", "Discipline", "Order"], ans: 1, cat: "Business Studies" },
+            { q: "Planning is:", options: ["Forward looking", "Backward looking", "Continuous", "All of these"], ans: 3, cat: "Business Studies" },
+            { q: "The process of grouping activities is called:", options: ["Departmentalisation", "Delegation", "Staffing", "Decentralisation"], ans: 0, cat: "Business Studies" },
+            { q: "Staffing is part of:", options: ["Human Resource Management", "Marketing Management", "Financial Management", "Operations"], ans: 0, cat: "Business Studies" },
+            { q: "Directing flows in which direction?", options: ["Upward", "Downward", "Diagonal", "Sideways"], ans: 1, cat: "Business Studies" },
+            { q: "Control is a function of:", options: ["Top Mgmt", "Middle Mgmt", "Lower Mgmt", "All Managers"], ans: 3, cat: "Business Studies" },
+            { q: "Which is NOT a participant in the Money Market?", options: ["RBI", "Banks", "SEBI", "NBFCs"], ans: 2, cat: "Business Studies" },
+            { q: "The settlement cycle in NSE is:", options: ["T+1", "T+2", "T+3", "T+5"], ans: 0, cat: "Business Studies" },
+            { q: "Marketing Mix includes 4 Ps: Product, Price, Place and:", options: ["People", "Process", "Promotion", "Physical Evidence"], ans: 2, cat: "Business Studies" },
+            { q: "The Consumer Protection Act 2019 replaced the Act of:", options: ["1986", "1991", "2000", "2010"], ans: 0, cat: "Business Studies" },
+            { q: "Liberalization means:", options: ["Reducing Govt control", "Selling public sector", "Integrating economy", "None"], ans: 0, cat: "Business Studies" },
+            { q: "Scalar Chain refers to:", options: ["Chain of command", "Production chain", "Supply chain", "Marketing chain"], ans: 0, cat: "Business Studies" },
+            { q: "Span of Management refers to:", options: ["Number of subordinates under a superior", "Length of service", "Area of office", "Number of managers"], ans: 0, cat: "Business Studies" },
+            { q: "Primary market is also known as:", options: ["New Issue Market", "Stock Exchange", "Money Market", "Debt Market"], ans: 0, cat: "Business Studies" },
+            { q: "Treasury Bills are issued by:", options: ["SBI", "RBI on behalf of Govt", "Commercial Banks", "SEBI"], ans: 1, cat: "Business Studies" },
+            { q: "Which is an element of the Political Environment?", options: ["Interest Rates", "Literacy Rates", "Govt attitude towards business", "Internet"], ans: 2, cat: "Business Studies" },
+            { q: "Grapevine communication is:", options: ["Formal", "Informal", "Written", "Vertical"], ans: 1, cat: "Business Studies" },
+            { q: "Working Capital is:", options: ["CA - CL", "CA + CL", "FA - CL", "Share Capital + Reserves"], ans: 0, cat: "Business Studies" },
+            { q: "SEBI was established in:", options: ["1988", "1992", "1956", "2000"], ans: 0, cat: "Business Studies" },
+            { q: "Labeling is important for:", options: ["Grading", "Product Identification", "Legal Requirement", "All of above"], ans: 3, cat: "Business Studies" },
+            { q: "Which leadership style involves centralized authority?", options: ["Democratic", "Autocratic", "Laissez-faire", "Bureaucratic"], ans: 1, cat: "Business Studies" },
+            { q: "Recruitment is a ___ process.", options: ["Positive", "Negative", "Neutral", "Complex"], ans: 0, cat: "Business Studies" },
+            { q: "Selection is a ___ process.", options: ["Positive", "Negative", "Neutral", "Easy"], ans: 1, cat: "Business Studies" },
+
+            // --- SECTION 3: ECONOMICS (51-75) ---
+            { q: "Which of the following is a stock concept?", options: ["National Income", "Investment", "Capital", "Depreciation"], ans: 2, cat: "Economics" },
+            { q: "Who is the 'Lender of Last Resort'?", options: ["SBI", "RBI", "World Bank", "IMF"], ans: 1, cat: "Economics" },
+            { q: "Fiscal Deficit = ?", options: ["Total Exp - Total Receipts", "Total Exp - (Rev Receipts + Non-debt Cap Receipts)", "Rev Exp - Rev Receipts", "None"], ans: 1, cat: "Economics" },
+            { q: "In a closed economy, if MPC = 0.8, Multiplier (K) is:", options: ["2", "4", "5", "10"], ans: 
