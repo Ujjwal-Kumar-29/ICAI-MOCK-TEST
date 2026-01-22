@@ -94,6 +94,21 @@
         /* Start Screen */
         #start-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 1rem; }
         .start-card { max-width: 500px; width: 100%; padding: 2rem; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); background: white; }
+        /* --- PASTE THIS AT THE END OF YOUR CSS --- */
+@media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .question-panel { flex: 1; margin: 0; border-radius: 0; box-shadow: none; }
+    .sidebar { 
+        min-width: auto; 
+        height: 250px; /* Fixed height for palette at bottom */
+        border-left: none; 
+        border-top: 2px solid #ddd; 
+    }
+    .palette-grid { padding: 0.5rem; }
+    .palette-btn { font-size: 0.8rem; }
+    header { padding: 0.5rem; }
+    .q-text { font-size: 1rem; }
+}
     </style>
 </head>
 <body>
@@ -242,4 +257,249 @@
             { q: "Which of the following is a stock concept?", options: ["National Income", "Investment", "Capital", "Depreciation"], ans: 2, cat: "Economics" },
             { q: "Who is the 'Lender of Last Resort'?", options: ["SBI", "RBI", "World Bank", "IMF"], ans: 1, cat: "Economics" },
             { q: "Fiscal Deficit = ?", options: ["Total Exp - Total Receipts", "Total Exp - (Rev Receipts + Non-debt Cap Receipts)", "Rev Exp - Rev Receipts", "None"], ans: 1, cat: "Economics" },
-            { q: "In a closed economy, if MPC = 0.8, Multiplier (K) is:", options: ["2", "4", "5", "10"], ans: 
+            { q: "In a closed economy, if MPC = 0.8, Multiplier (K) is:", options: ["2", "4", "5", "10"], ans: 2, cat: "Economics" },
+            { q: "Devaluation of currency leads to:", options: ["Increase in Imports", "Increase in Exports", "No change", "Decrease in Exports"], ans: 1, cat: "Economics" },
+            { q: "Which year is known as the 'Year of Great Divide'?", options: ["1921", "1947", "1951", "1991"], ans: 0, cat: "Economics" },
+            { q: "Green Revolution primarily benefited:", options: ["Wheat & Rice", "Pulses", "Oilseeds", "Cotton"], ans: 0, cat: "Economics" },
+            { q: "NITI Aayog replaced:", options: ["Finance Commission", "Planning Commission", "NDC", "RBI"], ans: 1, cat: "Economics" },
+            { q: "Human Capital Formation includes:", options: ["Health", "Education", "Training", "All of above"], ans: 3, cat: "Economics" },
+            { q: "Unemployment in rural India is mostly:", options: ["Structural", "Disguised & Seasonal", "Frictional", "Cyclical"], ans: 1, cat: "Economics" },
+            { q: "Great Leap Forward was launched in:", options: ["India", "China", "Pakistan", "Russia"], ans: 1, cat: "Economics" },
+            { q: "GST is a type of:", options: ["Direct Tax", "Indirect Tax", "Wealth Tax", "Corporate Tax"], ans: 1, cat: "Economics" },
+            { q: "The central problem of 'For whom to produce' relates to:", options: ["Technique of production", "Distribution of Income", "Selection of goods", "Growth"], ans: 1, cat: "Economics" },
+            { q: "Macroeconomics focuses on:", options: ["Individual Firm", "Cotton Industry", "General Price Level", "Price of a car"], ans: 2, cat: "Economics" },
+            { q: "Repo Rate is the rate at which:", options: ["RBI lends to Banks", "Banks lend to RBI", "Banks lend to public", "Public deposits in Banks"], ans: 0, cat: "Economics" },
+            { q: "Deficient Demand occurs when AD is:", options: ["More than AS", "Less than AS at full employment", "Equal to AS", "None"], ans: 1, cat: "Economics" },
+            { q: "Balance of Payments is a ___ concept.", options: ["Flow", "Stock", "Both", "Static"], ans: 0, cat: "Economics" },
+            { q: "Small Scale Industries (SSI) are defined by:", options: ["Number of employees", "Investment in Asset", "Turnover", "Location"], ans: 1, cat: "Economics" },
+            { q: "Organic Farming is beneficial because:", options: ["Eco-friendly", "Healthy food", "Sustain soil fertility", "All of above"], ans: 3, cat: "Economics" },
+            { q: "Which sector contributes most to India's GDP?", options: ["Primary", "Secondary", "Tertiary", "Quaternary"], ans: 2, cat: "Economics" },
+            { q: "M1 measure of money supply includes:", options: ["C + DD + OD", "C + TD", "M2 + TD", "All deposits"], ans: 0, cat: "Economics" },
+            { q: "Primary Deficit is:", options: ["Fiscal Deficit - Interest Payments", "Revenue Deficit - Interest", "Budget Deficit - Interest", "None"], ans: 0, cat: "Economics" },
+            { q: "Managed Floating Exchange Rate is also called:", options: ["Dirty Floating", "Clean Floating", "Fixed Rate", "Pegged Rate"], ans: 0, cat: "Economics" },
+            { q: "Pakistan's economy depends heavily on:", options: ["Industry", "Services", "Remittances & Agriculture", "Tourism"], ans: 2, cat: "Economics" },
+            { q: "One Child Policy was adopted by:", options: ["India", "China", "Pakistan", "Bangladesh"], ans: 1, cat: "Economics" },
+
+            // --- SECTION 4: APTITUDE & LOGICAL REASONING (76-100) ---
+            { q: "Series: 2, 1, 1/2, 1/4, ... Next is:", options: ["1/3", "1/8", "2/8", "1/16"], ans: 1, cat: "Aptitude" },
+            { q: "If CAT = 3120, then DOG = ?", options: ["4157", "4150", "4125", "4122"], ans: 0, cat: "Aptitude" },
+            { q: "Pointing to a man, a lady said 'His mother is the only daughter of my mother'. How is the lady related to the man?", options: ["Mother", "Sister", "Aunt", "Grandmother"], ans: 0, cat: "Aptitude" },
+            { q: "Odd one out: 3, 5, 7, 12, 13, 17", options: ["17", "13", "12", "7"], ans: 2, cat: "Aptitude" },
+            { q: "Current CEO of Google (Alphabet):", options: ["Satya Nadella", "Sundar Pichai", "Tim Cook", "Elon Musk"], ans: 1, cat: "Aptitude" },
+            { q: "Series: 7, 10, 8, 11, 9, 12, ...", options: ["7", "10", "12", "13"], ans: 1, cat: "Aptitude" },
+            { q: "B is the brother of A. S is the sister of B. How is S related to A?", options: ["Sister", "Aunt", "Mother", "Niece"], ans: 0, cat: "Aptitude" },
+            { q: "Which word does not belong? Apple, Potato, Grape, Mango", options: ["Apple", "Potato", "Grape", "Mango"], ans: 1, cat: "Aptitude" },
+            { q: "If South-East becomes North, North-East becomes West, then West becomes?", options: ["South-East", "North-East", "South-West", "North-West"], ans: 0, cat: "Aptitude" },
+            { q: "A train running at 60km/hr crosses a pole in 9 seconds. Length of train?", options: ["120m", "150m", "180m", "324m"], ans: 1, cat: "Aptitude" },
+            { q: "SCD, TEF, UGH, ____, WKL", options: ["CMN", "UJI", "VIJ", "IJT"], ans: 2, cat: "Aptitude" },
+            { q: "Identify the tagline of Nike:", options: ["Just Do It", "I'm Lovin It", "Think Different", "Open Happiness"], ans: 0, cat: "Aptitude" },
+            { q: "Where is the HQ of ICAI?", options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"], ans: 1, cat: "Aptitude" },
+            { q: "Cost Price = 100, Selling Price = 120. Profit % is:", options: ["10%", "20%", "25%", "15%"], ans: 1, cat: "Aptitude" },
+            { q: "A is 2 years older than B who is twice as old as C. Total ages = 27. How old is B?", options: ["5", "10", "12", "15"], ans: 1, cat: "Aptitude" },
+            { q: "What is the full form of GDP?", options: ["Gross Domestic Product", "Gross Domestic Produce", "Global Domestic Product", "Gross Daily Product"], ans: 0, cat: "Aptitude" },
+            { q: "Which company owns Instagram?", options: ["Google", "Microsoft", "Meta", "Twitter"], ans: 2, cat: "Aptitude" },
+            { q: "Look at this series: 36, 34, 30, 28, 24, ... What comes next?", options: ["20", "22", "23", "26"], ans: 1, cat: "Aptitude" },
+            { q: "Bird is to Fly as Fish is to:", options: ["Water", "Swim", "Gill", "Blue"], ans: 1, cat: "Aptitude" },
+            { q: "Arrange words in order: 1.Table 2.Tree 3.Wood 4.Seed 5.Plant", options: ["4,5,3,2,1", "4,5,2,3,1", "1,3,2,4,5", "4,5,2,1,3"], ans: 1, cat: "Aptitude" },
+            { q: "Average of first 5 multiples of 3 is:", options: ["3", "9", "12", "15"], ans: 1, cat: "Aptitude" },
+            { q: "Statement: All cars are cats. All cats are bats. Conclusion: All cars are bats.", options: ["True", "False", "Uncertain", "None"], ans: 0, cat: "Aptitude" },
+            { q: "Current Finance Minister of India (2025-26):", options: ["Amit Shah", "Nirmala Sitharaman", "Rajnath Singh", "S. Jaishankar"], ans: 1, cat: "Aptitude" },
+            { q: "How many squares in a standard chess board?", options: ["64", "65", "204", "32"], ans: 2, cat: "Aptitude" }, // Trick question (total squares of all sizes)
+            { q: "Opposite of 'Liability' in accounting is:", options: ["Debt", "Asset", "Expense", "Loss"], ans: 1, cat: "Aptitude" }
+        ];
+
+        // ==========================================
+        // APP LOGIC
+        // ==========================================
+        let currentQIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null); // Stores index of selected option
+        let reviewStatus = new Array(questions.length).fill(false);
+        let timerInterval;
+        let timeRemaining = 60 * 60; // 60 Minutes in seconds
+        let isSubmitted = false;
+
+        // DOM Elements
+        const qText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const qNum = document.getElementById('q-number');
+        const qCat = document.getElementById('q-category');
+        const palette = document.getElementById('palette');
+        const timerDisplay = document.getElementById('timer');
+        const startScreen = document.getElementById('start-screen');
+
+        function startQuiz() {
+            startScreen.style.display = 'none';
+            initPalette();
+            renderQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if(isSubmitted) return;
+                timeRemaining--;
+                let m = Math.floor(timeRemaining / 60);
+                let s = timeRemaining % 60;
+                timerDisplay.textContent = `${m}:${s < 10 ? '0'+s : s}`;
+                
+                if(timeRemaining <= 300) {
+                    timerDisplay.classList.add('warning-anim'); 
+                    timerDisplay.style.background = "#c0392b";
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function initPalette() {
+            palette.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('div');
+                btn.className = 'palette-btn';
+                btn.innerText = index + 1;
+                btn.onclick = () => jumpToQuestion(index);
+                btn.id = `p-btn-${index}`;
+                palette.appendChild(btn);
+            });
+        }
+
+        function updatePalette() {
+            questions.forEach((q, index) => {
+                const btn = document.getElementById(`p-btn-${index}`);
+                btn.className = 'palette-btn';
+                
+                if (index === currentQIndex) btn.classList.add('active');
+                
+                // Logic for Answered/Review colors
+                if (reviewStatus[index]) {
+                    if (userAnswers[index] !== null) btn.classList.add('review-answered');
+                    else btn.classList.add('review');
+                } else if (userAnswers[index] !== null) {
+                    btn.classList.add('answered');
+                }
+            });
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQIndex];
+            qText.innerText = q.q;
+            qNum.innerText = `Question ${currentQIndex + 1} / ${questions.length}`;
+            qCat.innerText = q.cat.toUpperCase();
+
+            optionsContainer.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                let className = 'option-card';
+                if (userAnswers[currentQIndex] === idx) className += ' selected';
+                
+                div.className = className;
+                div.innerText = opt;
+                div.onclick = () => selectOption(idx);
+                optionsContainer.appendChild(div);
+            });
+            updatePalette();
+        }
+
+        function selectOption(optionIndex) {
+            if(isSubmitted) return;
+            userAnswers[currentQIndex] = optionIndex;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQIndex < questions.length - 1) {
+                currentQIndex++;
+                renderQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQIndex > 0) {
+                currentQIndex--;
+                renderQuestion();
+            }
+        }
+
+        function jumpToQuestion(index) {
+            currentQIndex = index;
+            renderQuestion();
+        }
+
+        function toggleReview() {
+            if(isSubmitted) return;
+            reviewStatus[currentQIndex] = !reviewStatus[currentQIndex];
+            updatePalette();
+        }
+
+        function confirmSubmit() {
+            if(confirm("Are you sure you want to submit the test?")) {
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            isSubmitted = true;
+            clearInterval(timerInterval);
+            let score = 0;
+            let correct = 0;
+            let incorrect = 0;
+            let skipped = 0;
+            let analysisHTML = '';
+            
+            // Calculate Stats & Generate List
+            questions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.ans;
+                const isSkipped = userAns === null;
+
+                if (isCorrect) {
+                    score++;
+                    correct++;
+                } else {
+                    if (isSkipped) {
+                        skipped++;
+                        // Add to skipped list
+                        analysisHTML += createAnalysisCard(idx, q, null, "SKIPPED");
+                    } else {
+                        incorrect++;
+                        // Add to incorrect list
+                        analysisHTML += createAnalysisCard(idx, q, userAns, "INCORRECT");
+                    }
+                }
+            });
+
+            // Update UI
+            document.getElementById('result-modal').style.display = 'flex';
+            document.getElementById('score-val').innerText = `${score} / ${questions.length}`;
+            document.getElementById('accuracy-val').innerText = `${Math.round((correct/questions.length)*100)}%`;
+            document.getElementById('wrong-val').innerText = incorrect;
+            document.getElementById('skipped-val').innerText = skipped;
+            
+            if(analysisHTML === '') {
+                analysisHTML = '<div style="text-align:center; padding:2rem; color:green;"><h3>🎉 Outstanding! You got 100/100!</h3></div>';
+            }
+            document.getElementById('analysis-content').innerHTML = analysisHTML;
+        }
+
+        function createAnalysisCard(idx, q, userAnsIdx, type) {
+            const statusClass = type === "INCORRECT" ? "incorrect" : "skipped";
+            const badgeClass = type === "INCORRECT" ? "bg-red" : "bg-orange";
+            const userText = userAnsIdx === null ? "You did not attempt this question." : `Your Answer: ${q.options[userAnsIdx]}`;
+            
+            return `
+            <div class="analysis-card ${statusClass}">
+                <div style="display:flex; justify-content:space-between;">
+                    <span class="badge ${badgeClass}">${type}</span>
+                    <span style="font-size:0.8rem; color:#666;">${q.cat}</span>
+                </div>
+                <div style="font-weight:bold; margin: 0.5rem 0;">Q${idx+1}: ${q.q}</div>
+                <div style="color: #c0392b; margin-bottom: 0.2rem;">${userText}</div>
+                <div style="color: #27ae60; font-weight:500;">Correct Answer: ${q.options[q.ans]}</div>
+            </div>`;
+        }
+    </script>
+</body>
+</html>
